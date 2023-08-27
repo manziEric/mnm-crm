@@ -2,7 +2,6 @@
 // module.exports = crudController.createCRUDController("Invoice");
 
 const mongoose = require('mongoose');
-const moment = require('moment');
 const Model = mongoose.model('Invoice');
 const custom = require('../corsControllers/custom');
 const sendMail = require('./mailInvoiceController');
@@ -52,8 +51,8 @@ methods.create = async (req, res) => {
         new: true,
       }
     ).exec();
-    // Returning successfull response
 
+    // Returning successfull response
     custom.generatePdf('Invoice', { filename: 'invoice', format: 'A4' }, result);
 
     // Returning successfull response
@@ -126,8 +125,7 @@ methods.update = async (req, res) => {
       new: true, // return the new result instead of the old one
     }).exec();
 
-    // Returning successfull response
-
+    // Returning successfull responses
     custom.generatePdf('Invoice', { filename: 'invoice', format: 'A4' }, result);
     return res.status(200).json({
       success: true,
@@ -159,12 +157,12 @@ methods.update = async (req, res) => {
 methods.summary = async (req, res) => {
   try {
     let defaultType = 'month';
-    
+
     const { type } = req.query;
 
     if (type) {
       if (['week', 'month', 'year'].includes(type)) {
-        defaultType = type
+        defaultType = type;
       } else {
         return res.status(400).json({
           success: false,
@@ -228,10 +226,7 @@ methods.summary = async (req, res) => {
           status: '$results._id',
           count: '$results.count',
           percentage: {
-            $round: [
-              { $multiply: [{ $divide: ['$results.count', '$total_count'] }, 100] },
-              1,
-            ],
+            $round: [{ $multiply: [{ $divide: ['$results.count', '$total_count'] }, 100] }, 1],
           },
           total_amount: '$results.total_amount',
         },
@@ -268,7 +263,7 @@ methods.summary = async (req, res) => {
           total_amount: '$total_amount',
         },
       },
-    ])
+    ]);
 
     const finalResult = {
       total: result.reduce((acc, item) => acc + item.total_amount, 0).toFixed(2),
@@ -276,7 +271,6 @@ methods.summary = async (req, res) => {
       type,
       performance: result,
     };
-
 
     return res.status(200).json({
       success: true,

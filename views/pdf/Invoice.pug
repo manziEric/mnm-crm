@@ -260,11 +260,12 @@ html
     
       header.clearfix
         .top-area
-          img.logo.left(src=" https://www.idurarweb.com/Theme/idurarweb-theme/assets/img/creation-de-site-web-algerie.png")
+          img.logo.left(src=logo)
           .right.company-info
               p IDURAR WEB Agency
               p Centre d’affaire Gold Tower Oran - Algerie
               p RC: 16A5234245 /NIF: 198232345630567 /AI: 31009451343
+              p #{text}
               
         .col.col-24
           .space  
@@ -285,10 +286,10 @@ html
         .right.col-10
             .billTo
                 p Bill To :
-                p #{model.client.company}
-                p address : #{model.client.address}
-                p phone : #{model.client.phone}
-                p Tel : #{model.client.email}
+                p #{model.clientInfo.company}
+                p address : #{model.clientInfo.address}
+                p Tel : #{model.clientInfo.phone}
+                p Email : #{model.clientInfo.email}
         .col.col-24
           .space  
       main

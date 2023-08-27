@@ -2,11 +2,7 @@
 // module.exports = crudController.createCRUDController("Quote");
 
 const mongoose = require('mongoose');
-const moment = require('moment');
-
 const Model = mongoose.model('Quote');
-const InvoiceModel = mongoose.model('Invoice');
-
 const custom = require('../corsControllers/custom');
 
 const crudController = require('../corsControllers/crudController');

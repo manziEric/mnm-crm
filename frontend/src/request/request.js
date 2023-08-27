@@ -183,7 +183,7 @@ const request = {
       return errorHandler(error);
     }
   },
-  
+
   convert: async ({ entity, id }) => {
     try {
       const response = await axios.get(`${entity}/convert/${id}`);
@@ -196,6 +196,5 @@ const request = {
       return errorHandler(error);
     }
   },
-  
 };
 export default request;
