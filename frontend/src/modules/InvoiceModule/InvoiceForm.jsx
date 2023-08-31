@@ -1,21 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
 import { Form, Input, InputNumber, Button, Select, Divider, Row, Col } from 'antd';
-
 import { PlusOutlined } from '@ant-design/icons';
-
 import { DatePicker } from '@/components/CustomAntd';
-
 import AutoCompleteAsync from '@/components/AutoCompleteAsync';
 import ItemRow from '@/components/ErpPanel/ItemRow';
-
 import MoneyInputFormItem from '@/components/MoneyInputFormItem';
+import { taxRateList } from '@/utils/taxRateList';
+import { useSelector } from 'react-redux';
+import { selectInvoiceFollowNumItems } from '@/redux/erp/selectors';
 
 export default function InvoiceForm({ subTotal = 0, current = null }) {
   const [total, setTotal] = useState(0);
   const [taxRate, setTaxRate] = useState(0);
   const [taxTotal, setTaxTotal] = useState(0);
   const [currentYear, setCurrentYear] = useState(() => new Date().getFullYear());
+  const { result: invoiceData } = useSelector(selectInvoiceFollowNumItems);
+
+  const invoiceNumber = invoiceData?.date;
+
   const handelTaxChange = (value) => {
     setTaxRate(value);
   };
@@ -27,6 +30,7 @@ export default function InvoiceForm({ subTotal = 0, current = null }) {
       setCurrentYear(year);
     }
   }, [current]);
+
   useEffect(() => {
     const currentTotal = subTotal * taxRate + subTotal;
     setTaxTotal((subTotal * taxRate).toFixed(2));
@@ -63,17 +67,26 @@ export default function InvoiceForm({ subTotal = 0, current = null }) {
         </Col>
         <Col className="gutter-row" span={5}>
           <Form.Item
-            label="Number"
+            label="Invoice"
             name="number"
-            initialValue={1}
             rules={[
               {
-                required: true,
+                required: false,
                 message: 'Please input invoice number!',
               },
             ]}
           >
-            <InputNumber style={{ width: '100%' }} />
+            <p
+              style={{
+                width: '100%',
+                height: '2rem',
+                border: '1px solid #D8D8D8',
+                padding: '5px',
+                borderRadius: '5px',
+              }}
+            >
+              {invoiceNumber}
+            </p>
           </Form.Item>
         </Col>
         <Col className="gutter-row" span={5}>
@@ -220,16 +233,13 @@ export default function InvoiceForm({ subTotal = 0, current = null }) {
                   message: 'Please input your taxRate!',
                 },
               ]}
-              initialValue="0"
             >
               <Select
                 value={taxRate}
                 onChange={handelTaxChange}
-                bordered={false}
-                options={[
-                  { value: 0, label: 'Tax 0 %' },
-                  { value: 0.19, label: 'Tax 19 %' },
-                ]}
+                bordered={true}
+                options={taxRateList}
+                placeholder="Choose tax rate"
               ></Select>
             </Form.Item>
           </Col>

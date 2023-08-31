@@ -274,22 +274,22 @@ html
               | INVOICE 
             div 
               .col.col-8
-                p.strong Date :
+                p.strong Date
                 p #{moment(model.date).format("DD/MM/YYYY")}
               .col.col-8
-                p.strong Expired Date :
+                p.strong Expired Date
                 p #{moment(model.expiredDate).format("DD/MM/YYYY")}
               .col.col-8 
-                p.strong Invoice Number :
-                p # #{model.number}/#{model.year || ""} 
+                p.strong Invoice Number
+                p #{model.number  || model.year}
               
         .right.col-10
             .billTo
                 p Bill To :
                 p #{model.clientInfo.company}
-                p address : #{model.clientInfo.address}
-                p Tel : #{model.clientInfo.phone}
-                p Email : #{model.clientInfo.email}
+                p #{model.clientInfo.address}
+                p #{model.clientInfo.phone}
+                p #{model.clientInfo.email}
         .col.col-24
           .space  
       main
