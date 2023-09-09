@@ -10,7 +10,7 @@ export default function AdminForm({ isUpdateForm = false }) {
         rules={[
           {
             required: true,
-            message: 'Please input your Name!',
+            message: 'Please input your name!',
           },
         ]}
       >

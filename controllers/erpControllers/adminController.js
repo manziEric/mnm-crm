@@ -254,16 +254,24 @@ exports.update = async (req, res) => {
 
     if (email) {
       const existingAdmin = await Admin.findOne({ email: email });
-
       if (existingAdmin._id != req.params.id)
         return res.status(400).json({ message: 'An account with this email already exists.' });
     }
+
     let updates = {
       role: req.body.role,
       email: req.body.email,
-      employee: req.body.employee,
+      employee: req.body?.employee,
       name: req.body.name,
       surname: req.body.surname,
+      companyRegNumber: req.body.companyRegNumber,
+      company: req.body.company,
+      bankAccount: req.body.bankAccount,
+      address: req.body.address,
+      city: req.body.city,
+      zipcode: req.body.zipcode,
+      country: req.body.country,
+      photo: req.admin?.photo,
     };
 
     // Find document by id and updates with the required fields
