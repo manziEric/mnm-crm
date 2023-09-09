@@ -4,6 +4,7 @@
 const mongoose = require('mongoose');
 const Model = mongoose.model('Quote');
 const custom = require('../corsControllers/custom');
+const sendMail = require('./mailQuoteController');
 
 const crudController = require('../corsControllers/crudController');
 const methods = crudController.createCRUDController('Quote');
@@ -418,4 +419,5 @@ methods.convertQuoteToInvoice = async (req, res) => {
 //   }
 // };
 
+methods.sendMail = sendMail;
 module.exports = methods;

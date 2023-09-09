@@ -6,14 +6,21 @@ IDURAR is Open Source ERP / CRM (Invoice / Inventory / Accounting / HR) Based on
 Dont forget to give a ⭐️ to this project ... Happy coding! 🤩
 ```
 
+# Our Sponsors
+
+  <a href="https://www.digitalocean.com/?ref=idurarapp.com">
+    <img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/PoweredByDO/DO_Powered_by_Badge_blue.svg" width="201px">
+  </a>
+
+#
+
 ![Open Source ERP / CRM - MERN Stack (Node.js/React.js)](https://user-images.githubusercontent.com/50052356/141647096-dcb66696-6103-4850-ae21-9fc97a412252.png)
-![Open Source ERP / CRM - MERN Stack (Node.js/React.js)](https://user-images.githubusercontent.com/50052356/141647100-9dfd6ee5-f873-42a8-8923-88bd0cf53606.png)
 
 ## Open Source ERP / CRM App
 
 IDURAR is Open Source ERP / CRM (Invoice / Inventory / Accounting / HR) Based on Mern Stack (Node.js / Express.js / MongoDb / React.js ) with Ant Design (AntD) and Redux
 
-**Live App Demo** : [https://idurarapp.com/open-source-erp-crm/](https://idurarapp.com/open-source-erp-crm/) "Please use chrome"
+**Live App Demo** : [https://idurarapp.com/demo/](https://idurarapp.com/demo/) "Please use chrome"
 
 `username : admin@demo.com password : admin123`
 
@@ -120,7 +127,7 @@ npm run start
 
 Once the website is up and running, you can log in using the following credentials:
 
-`username : admin@demo.com password : admin123`
+`username : admin@demo.com - password : admin123`
 
 Now you should be all set to run the project locally on your machine and explore its features.
 

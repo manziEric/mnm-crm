@@ -58,7 +58,7 @@ const Item = ({ item }) => {
   );
 };
 
-export default function ReadItem({ config }) {
+export default function ReadItem({ config, selectedItem }) {
   const { entity, ENTITY_NAME } = config;
   const dispatch = useDispatch();
   const { erpContextAction } = useErpContext();
@@ -68,8 +68,7 @@ export default function ReadItem({ config }) {
 
   const { readPanel, updatePanel } = erpContextAction;
 
-  const [itemslist, setItemsList] = useState([]);
-  const [currentErp, setCurrentErp] = useState({
+  const resetErp = {
     status: '',
     client: {
       company: '',
@@ -84,7 +83,10 @@ export default function ReadItem({ config }) {
     credit: 0,
     number: 0,
     year: 0,
-  });
+  };
+
+  const [itemslist, setItemsList] = useState([]);
+  const [currentErp, setCurrentErp] = useState(selectedItem ?? resetErp);
 
   useEffect(() => {
     if (currentResult) {
@@ -100,7 +102,10 @@ export default function ReadItem({ config }) {
   return (
     <>
       <PageHeader
-        onBack={() => readPanel.close()}
+        onBack={() => {
+          readPanel.close();
+          history.push(`/${entity.toLowerCase()}`);
+        }}
         title={`${ENTITY_NAME} # ${currentErp.number}/${currentErp.year || ''}`}
         ghost={false}
         tags={<Tag color="volcano">{currentErp.paymentStatus || currentErp.status}</Tag>}
@@ -108,7 +113,10 @@ export default function ReadItem({ config }) {
         extra={[
           <Button
             key={`${uniqueId()}`}
-            onClick={() => readPanel.close()}
+            onClick={() => {
+              readPanel.close();
+              history.push(`/${entity.toLowerCase()}`);
+            }}
             icon={<CloseCircleOutlined />}
           >
             Close
@@ -135,6 +143,7 @@ export default function ReadItem({ config }) {
                 })
               );
               updatePanel.open();
+              history.push(`/${entity.toLowerCase()}/update/${currentErp._id}`);
             }}
             type="primary"
             icon={<EditOutlined />}

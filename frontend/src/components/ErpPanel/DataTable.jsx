@@ -7,13 +7,15 @@ import { erp } from '@/redux/erp/actions';
 import { selectListItems } from '@/redux/erp/selectors';
 import { useErpContext } from '@/context/erp';
 import uniqueId from '@/utils/uinqueId';
+import { useHistory } from 'react-router-dom';
 
 import { RedoOutlined, PlusOutlined } from '@ant-design/icons';
 import useResponsiveTable from '@/hooks/useResponsiveTable';
 import axios from 'axios';
 
 function AddNewItem({ config }) {
-  const { entity, ADD_NEW_ENTITY } = config;
+  const history = useHistory();
+  const { ADD_NEW_ENTITY, entity } = config;
   const { erpContextAction } = useErpContext();
   const dispatch = useDispatch();
   const { createPanel } = erpContextAction;
@@ -88,7 +90,8 @@ function AddNewItem({ config }) {
         console.error('Error:', error);
       });
 
-    createPanel.open();
+    // createPanel.open();
+    history.push(`/${entity.toLowerCase()}/create`);
   };
 
   return (
