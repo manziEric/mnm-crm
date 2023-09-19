@@ -13,7 +13,7 @@ const AdminInfo = ({ config }) => {
   const { modal, updatePanel } = profileContextAction;
   const { ENTITY_NAME } = config;
   const { result } = useSelector(selectCurrentItem);
-
+  console.log(result);
   return (
     <>
       <PageHeader
@@ -59,22 +59,40 @@ const AdminInfo = ({ config }) => {
         </Col>
         <Col xs={{ span: 24 }} sm={{ span: 18 }}>
           <Descriptions labelStyle={{ fontSize: '17px' }} size="small">
-            <Descriptions.Item label="Name" span="3" style={{ paddingTop: '20px' }}>
+            <Descriptions.Item label="Company Name" span="3" style={{ paddingTop: '20px' }}>
               <h3
                 style={{
                   color: '#22075e',
                 }}
               >
-                {result?.name}
+                {result?.company}
               </h3>
             </Descriptions.Item>
-            <Descriptions.Item label="Surname" span="3">
+            <Descriptions.Item label="Manager Name" span="3">
               <h3
                 style={{
                   color: '#22075e',
                 }}
               >
-                {result?.surname}
+                {`${result?.name} ${result?.surname}`}
+              </h3>
+            </Descriptions.Item>
+            <Descriptions.Item label="Company registration nr" span="3">
+              <h3
+                style={{
+                  color: '#22075e',
+                }}
+              >
+                {result?.companyRegNumber}
+              </h3>
+            </Descriptions.Item>
+            <Descriptions.Item label="Bank account" span="3">
+              <h3
+                style={{
+                  color: '#22075e',
+                }}
+              >
+                {result?.bankAccount}
               </h3>
             </Descriptions.Item>
             <Descriptions.Item label="Email" span="3" style={{ paddingTop: '20px' }}>
@@ -84,6 +102,42 @@ const AdminInfo = ({ config }) => {
                 }}
               >
                 {result?.email}
+              </h3>
+            </Descriptions.Item>
+            <Descriptions.Item label="Address" span="3">
+              <h3
+                style={{
+                  color: '#22075e',
+                }}
+              >
+                {result?.address}
+              </h3>
+            </Descriptions.Item>
+            <Descriptions.Item label="City" span="3">
+              <h3
+                style={{
+                  color: '#22075e',
+                }}
+              >
+                {result?.city}
+              </h3>
+            </Descriptions.Item>
+            <Descriptions.Item label="Zip code" span="3">
+              <h3
+                style={{
+                  color: '#22075e',
+                }}
+              >
+                {result?.zipcode}
+              </h3>
+            </Descriptions.Item>
+            <Descriptions.Item label="Country" span="3">
+              <h3
+                style={{
+                  color: '#22075e',
+                }}
+              >
+                {result?.country}
               </h3>
             </Descriptions.Item>
             <Descriptions.Item label="User Role" span="3">
