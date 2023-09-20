@@ -13,7 +13,7 @@ const AdminInfo = ({ config }) => {
   const { modal, updatePanel } = profileContextAction;
   const { ENTITY_NAME } = config;
   const { result } = useSelector(selectCurrentItem);
-  console.log(result);
+
   return (
     <>
       <PageHeader
