@@ -1,6 +1,13 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { Form, Input, Select } from 'antd';
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Form, Input } from 'antd';
+import {
+  UserOutlined,
+  LockOutlined,
+  HomeOutlined,
+  UsergroupAddOutlined,
+  IdcardOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
 
 import useLanguage from '@/locale/useLanguage';
 import { countryList } from '@/utils/countryList';
