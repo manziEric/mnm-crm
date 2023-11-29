@@ -9,7 +9,7 @@ const invoiceSchema = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'Admin', required: true },
   number: {
     type: String,
-    required: true,
+    required: false,
   },
   year: {
     type: Number,

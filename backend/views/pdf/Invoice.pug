@@ -261,10 +261,12 @@ html
       header.clearfix
         .top-area
           img.logo.left(src=logo)
+          img.logo.left(src=logo)
           .right.company-info
               p IDURAR WEB Agency
               p Centre d’affaire Gold Tower Oran - Algerie
               p RC: 16A5234245 /NIF: 198232345630567 /AI: 31009451343
+              p #{text}
               p #{text}
               
         .col.col-24
@@ -275,21 +277,26 @@ html
             div 
               .col.col-8
                 p.strong Date
+                p.strong Date
                 p #{moment(model.date).format("DD/MM/YYYY")}
               .col.col-8
+                p.strong Expired Date
                 p.strong Expired Date
                 p #{moment(model.expiredDate).format("DD/MM/YYYY")}
               .col.col-8 
                 p.strong Invoice Number
                 p #{model.number  || model.year}
+                p.strong Invoice Number
+                p #{model.number  || model.year}
               
         .right.col-10
             .billTo
-                p Bill To :
-                p #{model.clientInfo.company}
-                p #{model.clientInfo.address}
-                p #{model.clientInfo.phone}
-                p #{model.clientInfo.email}
+                p Bill To
+                p #{model.client.company}
+                p Onderneming nummer
+                p #{model.client.address}
+                p #{model.client.phone}
+                p #{model.client.email}
         .col.col-24
           .space  
       main
@@ -307,6 +314,8 @@ html
                   span #{item.description}
                   br
                   span Note: #{model.note}
+                  br
+                  span Note: #{model.note}
                 td.qty #{item.quantity}  
                 td.unit $ #{item.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
                 td.total $ #{item.total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
@@ -322,7 +331,7 @@ html
       .col.col-24
           .space
       footer.footer-invoice
-        | Invoice was created on a computer and is valid without the signature and seal.
+        | Gelieve dit bedrag van € #{invoice.total} over te maken voor: #{invoice.expiredDate} op rekeningnummer: #{invoice.bankAccount} t.n.v. #{invoice.company} o.v.v. "Factuur #{invoice.number}"..
           
 
    

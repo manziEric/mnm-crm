@@ -9,13 +9,13 @@ import useLanguage from '@/locale/useLanguage';
 
 import { settingsAction } from '@/redux/settings/actions';
 import { erp } from '@/redux/erp/actions';
-import { selectCreatedItem } from '@/redux/erp/selectors';
-
+import { selectCreatedItem, selectInvoiceFollowNumItems } from '@/redux/erp/selectors';
 import calculate from '@/utils/calculate';
 import { generate as uniqueId } from 'shortid';
 
 import Loading from '@/components/Loading';
 import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import invoiceFollowNum from '@/utils/invoiceFollowNum';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -33,19 +33,35 @@ function SaveForm({ form }) {
 }
 
 export default function CreateItem({ config, CreateForm }) {
+  const [invoiceNumber, setInvoiceNumber] = useState('');
+  const { isLoading, isSuccess, result } = useSelector(selectCreatedItem);
+  const [form] = Form.useForm();
+  const [subTotal, setSubTotal] = useState(0);
+  const [offerSubTotal, setOfferSubTotal] = useState(0);
+  const { result: invoiceData } = useSelector(selectInvoiceFollowNumItems);
+  const invoiceDate = invoiceData?.date;
+
   const translate = useLanguage();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (invoiceDate) {
+      setInvoiceNumber(invoiceDate);
+    }
+
+    // Use setFieldsValue to dynamically update the number field
+    form.setFieldsValue({
+      number: invoiceNumber,
+    });
+  }, [invoiceDate, invoiceNumber]);
+
+  useEffect(() => {
     dispatch(settingsAction.list({ entity: 'setting' }));
   }, []);
+
   let { entity } = config;
 
-  const { isLoading, isSuccess, result } = useSelector(selectCreatedItem);
-  const [form] = Form.useForm();
-  const [subTotal, setSubTotal] = useState(0);
-  const [offerSubTotal, setOfferSubTotal] = useState(0);
   const handelValuesChange = (changedValues, values) => {
     const items = values['items'];
     let subTotal = 0;
@@ -71,6 +87,22 @@ export default function CreateItem({ config, CreateForm }) {
   };
 
   useEffect(() => {
+    let isMounted = true; // Initialize a flag to track component mounting
+
+    const fetchData = async () => {
+      try {
+        const { formattedInvoices } = await invoiceFollowNum();
+
+        if (isMounted) {
+          dispatch(erp.invoiceFollowNum({ date: formattedInvoices }));
+        }
+      } catch (error) {
+        // Handle any errors here
+      }
+    };
+
+    fetchData();
+
     if (isSuccess) {
       form.resetFields();
       dispatch(erp.resetAction({ actionType: 'create' }));
@@ -78,10 +110,18 @@ export default function CreateItem({ config, CreateForm }) {
       setOfferSubTotal(0);
       navigate(`/${entity.toLowerCase()}/read/${result._id}`);
     }
-    return () => {};
+    return () => {
+      isMounted = false;
+    };
   }, [isSuccess]);
 
   const onSubmit = (fieldsValue) => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+
+    fieldsValue['number'] = invoiceDate == undefined ? `${year + month}/1001` : invoiceDate;
+
     if (fieldsValue) {
       if (fieldsValue.items) {
         let newList = [...fieldsValue.items];

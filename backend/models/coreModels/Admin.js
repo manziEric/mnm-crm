@@ -14,17 +14,70 @@ const adminSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
     unique: true,
     lowercase: true,
     trim: true,
-    required: true,
+    required: false,
   },
-  name: { type: String, required: true, lowercase: true },
-  surname: { type: String, required: true, lowercase: true },
+  name: {
+    type: String,
+    required: false,
+    lowercase: true,
+  },
+  surname: {
+    type: String,
+    required: false,
+    lowercase: true,
+  },
+  company: {
+    type: String,
+    required: false,
+    lowercase: true,
+  },
+  companyRegNumber: {
+    type: String,
+    required: false,
+    lowercase: true,
+  },
+  bankAccount: {
+    type: String,
+    required: false,
+    lowercase: true,
+  },
+  companyTaxNumber: {
+    type: String,
+    required: false,
+    lowercase: true,
+  },
+  address: {
+    type: String,
+    required: false,
+    lowercase: true,
+  },
+  zipcode: {
+    type: String,
+    required: false,
+    lowercase: true,
+  },
+  city: {
+    type: String,
+    required: false,
+    lowercase: true,
+  },
+  country: {
+    type: String,
+    required: false,
+    lowercase: true,
+  },
+  website: {
+    type: String,
+    required: false,
+    lowercase: true,
+  },
   photo: {
     type: String,
     trim: true,

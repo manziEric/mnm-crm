@@ -55,10 +55,9 @@ const update = async (req, res) => {
       result,
       message: 'we update this document by this id: ' + req.params.id,
     });
-  } catch (error) {
-    // If error is thrown by Mongoose due to required validations
-    console.log(error);
-    if (error.name == 'ValidationError') {
+  } catch (err) {
+    // If err is thrown by Mongoose due to required validations
+    if (err.name == 'ValidationError') {
       return res.status(400).json({
         success: false,
         result: null,

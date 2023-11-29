@@ -63,7 +63,7 @@ export const register = async ({ registerData }) => {
       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(registerData), // body data type must match "Content-Type" header
     });
-
+    console.log(response);
     const { status } = response;
     const data = await response.json();
 

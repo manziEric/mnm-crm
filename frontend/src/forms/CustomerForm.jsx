@@ -68,6 +68,7 @@ export default function CustomerForm({ isUpdateForm = false }) {
         <Input />
       </Form.Item>
       <Form.Item
+        name="phone"
         label={translate('Phone')}
         rules={[
           {
@@ -78,6 +79,22 @@ export default function CustomerForm({ isUpdateForm = false }) {
           },
           {
             pattern: validatePhoneNumber,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="address"
+        label="Address"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your address!',
+          },
+          {
+            validator: validateEmptyString,
+            message: 'Please input valid value!',
           },
         ]}
       >

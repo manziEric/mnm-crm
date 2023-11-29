@@ -1,25 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
 import { Form, Input, InputNumber, Button, Select, Divider, Row, Col } from 'antd';
-
 import { PlusOutlined } from '@ant-design/icons';
 
 import { DatePicker } from 'antd';
 
 import AutoCompleteAsync from '@/components/AutoCompleteAsync';
-
 import ItemRow from '@/modules/ErpPanelModule/ItemRow';
-
 import MoneyInputFormItem from '@/components/MoneyInputFormItem';
 import { selectFinanceSettings } from '@/redux/settings/selectors';
 import useLanguage from '@/locale/useLanguage';
 
 import calculate from '@/utils/calculate';
+import { taxRateList } from '@/utils/taxRateList';
 import { useSelector } from 'react-redux';
 
 export default function InvoiceForm({ subTotal = 0, current = null }) {
   const { last_invoice_number } = useSelector(selectFinanceSettings);
-
   if (!last_invoice_number) {
     return <></>;
   }
@@ -34,7 +31,7 @@ function LoadInvoiceForm({ subTotal = 0, current = null }) {
   const [taxRate, setTaxRate] = useState(0);
   const [taxTotal, setTaxTotal] = useState(0);
   const [currentYear, setCurrentYear] = useState(() => new Date().getFullYear());
-  const [lastNumber, setLastNumber] = useState(() => last_invoice_number + 1);
+
   const handelTaxChange = (value) => {
     setTaxRate(value);
   };
@@ -47,6 +44,7 @@ function LoadInvoiceForm({ subTotal = 0, current = null }) {
       setLastNumber(number);
     }
   }, [current]);
+
   useEffect(() => {
     const currentTotal = calculate.add(calculate.multiply(subTotal, taxRate), subTotal);
     setTaxTotal(Number.parseFloat(calculate.multiply(subTotal, taxRate)).toFixed(2));
@@ -84,14 +82,13 @@ function LoadInvoiceForm({ subTotal = 0, current = null }) {
           <Form.Item
             label={translate('number')}
             name="number"
-            initialValue={lastNumber}
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
           >
-            <InputNumber min={1} style={{ width: '100%' }} />
+            <Input style={{ width: '100%' }} />
           </Form.Item>
         </Col>
         <Col className="gutter-row" span={5}>
@@ -208,7 +205,8 @@ function LoadInvoiceForm({ subTotal = 0, current = null }) {
           <Col className="gutter-row" span={5}>
             <Form.Item>
               <Button type="primary" htmlType="submit" icon={<PlusOutlined />} block>
-                {translate('Save')}
+                {/* TODO: make this dynamic tekst based on create or update  */}
+                Save Invoice
               </Button>
             </Form.Item>
           </Col>
@@ -240,11 +238,9 @@ function LoadInvoiceForm({ subTotal = 0, current = null }) {
               <Select
                 value={taxRate}
                 onChange={handelTaxChange}
-                bordered={false}
-                options={[
-                  { value: 0, label: `${translate('Tax')} 0 %` },
-                  { value: 0.19, label: `${translate('Tax')} 19 %` },
-                ]}
+                bordered={true}
+                options={taxRateList}
+                placeholder="Choose tax rate"
               ></Select>
             </Form.Item>
           </Col>
