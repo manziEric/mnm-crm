@@ -13,12 +13,14 @@ import LoginForm from '@/forms/LoginForm';
 import AuthLayout from '@/layout/AuthLayout';
 
 import logo from '@/style/images/logo.png';
-import SideContent from '@/components/SideContent';
-import SelectLanguage from '@/components/SelectLanguage';
-import useIsMobile from '@/hooks/useIsMobile';
+import AuthModule from '@/modules/AuthModule';
+import Loading from '@/components/Loading';
+// import SideContent from '@/components/SideContent';
+// import SelectLanguage from '@/components/SelectLanguage';
+// import useIsMobile from '@/hooks/useIsMobile';
 
-const { Content } = Layout;
-const { Title } = Typography;
+// const { Content } = Layout;
+// const { Title } = Typography;
 
 const LoginPage = () => {
   const translate = useLanguage();
